@@ -13,4 +13,4 @@ app.get('/', (req, res) => {
     res.send('API do TODO App funcionando');
 });
 
-export default app;
+module.exports = app;

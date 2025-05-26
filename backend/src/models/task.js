@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -6,4 +6,4 @@ const taskSchema = new mongoose.Schema({
     completed: { type: Boolean, default: false }
 }, { timestamps: true });
 
-export default mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Task', taskSchema);

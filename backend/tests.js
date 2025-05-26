@@ -1,9 +1,8 @@
-// backend/tests/tasks.test.js
 const request = require('supertest');
-const app = require('../src/app');
-const Task = require('../src/models/Task');
+const app = require('./src/app');
+const Task = require('./src/models/Task');
 
-jest.mock('../src/models/Task');
+jest.mock('./src/models/Task');
 
 describe('Tasks API', () => {
   beforeEach(() => {
@@ -16,13 +15,13 @@ describe('Tasks API', () => {
         { _id: '1', title: 'Task 1', completed: false },
         { _id: '2', title: 'Task 2', completed: true }
       ];
-      
+
       Task.find.mockReturnValue({
         sort: jest.fn().mockResolvedValue(mockTasks)
       });
 
       const response = await request(app).get('/api/tasks');
-      
+
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockTasks);
     });
@@ -31,13 +30,13 @@ describe('Tasks API', () => {
       const completedTasks = [
         { _id: '2', title: 'Task 2', completed: true }
       ];
-      
+
       Task.find.mockReturnValue({
         sort: jest.fn().mockResolvedValue(completedTasks)
       });
 
       const response = await request(app).get('/api/tasks?completed=true');
-      
+
       expect(response.status).toBe(200);
       expect(Task.find).toHaveBeenCalledWith({ completed: true });
     });
@@ -49,7 +48,7 @@ describe('Tasks API', () => {
         title: 'New Task',
         description: 'Task description'
       };
-      
+
       const savedTask = {
         _id: '3',
         ...newTask,
@@ -63,7 +62,7 @@ describe('Tasks API', () => {
       const response = await request(app)
         .post('/api/tasks')
         .send(newTask);
-      
+
       expect(response.status).toBe(201);
       expect(response.body.title).toBe(newTask.title);
     });
@@ -74,7 +73,7 @@ describe('Tasks API', () => {
       const response = await request(app)
         .post('/api/tasks')
         .send({ description: 'No title' });
-      
+
       expect(response.status).toBe(400);
     });
   });
@@ -92,7 +91,7 @@ describe('Tasks API', () => {
       const response = await request(app)
         .put('/api/tasks/1')
         .send({ title: 'Updated Task', completed: true });
-      
+
       expect(response.status).toBe(200);
       expect(response.body).toEqual(updatedTask);
     });
@@ -103,7 +102,7 @@ describe('Tasks API', () => {
       const response = await request(app)
         .put('/api/tasks/999')
         .send({ title: 'Updated Task' });
-      
+
       expect(response.status).toBe(404);
     });
   });
@@ -113,7 +112,7 @@ describe('Tasks API', () => {
       Task.findByIdAndDelete.mockResolvedValue({ _id: '1' });
 
       const response = await request(app).delete('/api/tasks/1');
-      
+
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Task deleted successfully');
     });
@@ -122,7 +121,7 @@ describe('Tasks API', () => {
       Task.findByIdAndDelete.mockResolvedValue(null);
 
       const response = await request(app).delete('/api/tasks/999');
-      
+
       expect(response.status).toBe(404);
     });
   });
