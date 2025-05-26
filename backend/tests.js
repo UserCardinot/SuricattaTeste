@@ -1,8 +1,8 @@
 const request = require('supertest');
 const app = require('./src/app');
-const Task = require('./src/models/Task');
+const Task = require('./src/models/task');
 
-jest.mock('./src/models/Task');
+jest.mock('./src/models/task');
 
 describe('Tasks API', () => {
   beforeEach(() => {
