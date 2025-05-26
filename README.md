@@ -11,7 +11,7 @@
 1. Clonar o repositório
   - Abrir o Git Bash e executar o seguinte comando
    ```
-   git clone git@github.com:UserCardinot/SuricattoTeste.git
+   git clone git@github.com:UserCardinot/SuricattaTeste.git
    ```
 
 2. Rodar o projeto manualmente:
