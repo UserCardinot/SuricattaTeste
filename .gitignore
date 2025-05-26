@@ -1,0 +1,23 @@
+# Backend node_modules
+/backend/node_modules/
+
+# Frontend node_modules
+/frontend/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Env files
+.env
+
+# Sistema
+.DS_Store
+
+# Docker
+docker-compose.override.yml
